@@ -1,0 +1,235 @@
+:root
+{
+    --main-color: red;
+}
+
+*
+{
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  overflow-wrap: break-word;
+}
+
+html, body
+{
+  background-color: #fafafa;
+}
+
+header
+{
+  height: 100px;
+  background-color: #333;
+}
+
+a
+{
+  color: inherit;
+  text-decoration: none;
+}
+
+
+
+.container
+{
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/*
+** ---------------------------------------------------------------------------
+**                                 NAVBAR
+** ---------------------------------------------------------------------------
+*/
+
+.header-nav
+{
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+.navbar
+{
+  list-style: none;
+}
+
+.navbar>li>a, .navbar>li
+{
+  display: inline-table;
+}
+
+.navbar>li>a
+{
+  padding: 10px 15px;
+  line-height: 1;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar>li>a:hover
+{
+  border-bottom: 2px solid var(--main-color);
+}
+
+
+/*
+** ---------------------------------------------------------------------------
+**                                    MISC
+** ---------------------------------------------------------------------------
+*/
+
+.bg-white
+{
+	background-color: #fff;
+	color: #111;
+}
+
+.bg-lightgray
+{
+	background-color: #f4f4f4;
+	color: #111;
+}
+
+.bg-gray
+{
+	background-color: #656565;
+}
+
+.bg-darkgray
+{
+	background-color: #252525;
+}
+
+.bg-turquoise
+{
+	background-color: #55acee;
+}
+
+.bg-blue
+{
+	background-color: #3b5998;
+}
+
+.bg-lightblue
+{
+	background-color: #507299;
+}
+
+.bg-pink
+{
+	background-color: #cd486b;
+}
+
+.bg-green
+{
+	background-color: #298A08;
+}
+
+.bg-green.bg-hover:hover
+{
+	background-color: #257E07;
+}
+
+.bg-orange
+{
+	background-color: #E29E37;
+}
+
+.bg-red
+{
+	background-color: #EB0A0A;
+}
+
+.bg-red.bg-hover:hover
+{
+	background-color: #AF0A0A;
+}
+
+.bg-purple
+{
+	background-color: #6441a4;
+}
+
+.bg-grayish
+{
+	background-color: #2E292B;
+}
+
+.link:hover
+{
+	color: #EB0A0A;
+}
+
+.link.black:hover
+{
+	color: #000;
+}
+
+.hardlink
+{
+	color: #EB0A0A;
+}
+
+.hardlink:hover
+{
+	color: #AF0A0A;
+}
+
+.color-white
+{
+	color: #fff;
+}
+
+.color-red
+{
+	color: #EB0A0A;
+}
+
+.color-green
+{
+	color: #298A08;
+}
+
+.color-darkgray
+{
+	color: #222;
+}
+
+.color-black
+{
+	color: #000;
+}
+
+/*
+** ---------------------------------------------------------------------------
+**                                    MEDIA
+** ---------------------------------------------------------------------------
+*/
+
+@media (min-width: 1200px)
+{
+  .container
+  {
+      width: 1170px;
+  }
+}
+
+@media (min-width: 992px)
+{
+  .container
+  {
+      width: 970px;
+  }
+}
+
+@media (min-width: 768px)
+{
+  .container
+  {
+      width: 750px;
+  }
+}
