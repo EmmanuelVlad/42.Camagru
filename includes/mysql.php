@@ -20,3 +20,4 @@ $db->exec('CREATE TABLE IF NOT EXISTS `users` (
   `active` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 )');
+
