@@ -6,10 +6,10 @@
 
     <nav class="header-nav">
       <ul class="navbar">
-        <li><a href="<?= $url_site ?>">Accueil</a></li>
-        <li><a href="<?= $url_site ?>">Accueil</a></li>
-        <li><a href="<?= $url_site ?>">Accueil</a></li>
-        <li><a href="<?= $url_site ?>">Accueil</a></li>
+        <li><a href="<?=URL?>">Accueil</a></li>
+        <li><a href="<?=URL?>">Accueil</a></li>
+        <li><a href="<?=URL?>">Accueil</a></li>
+        <li><a href="<?=URL?>">Accueil</a></li>
       </ul>
     </nav>
 
