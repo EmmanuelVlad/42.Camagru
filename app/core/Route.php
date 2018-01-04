@@ -76,7 +76,7 @@ class Route
     {
         $path = $this->path;
         foreach($params as $key => $value) {
-            $path = str_replace("<(.*?)$key>", $value, $path);
+            $path = preg_replace("/\<(.*?)$key(.*?)\>/", $value, $path);
         }
 
         return $path;

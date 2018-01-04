@@ -9,6 +9,8 @@
 	<meta name="description" content="<?= (isset($data->description)) ? htmlspecialchars($data->description) : htmlspecialchars(SITE_DESCRIPTION) ?>">
 
 	<link rel="icon" type="image/png" href="<?=URL?>public/images/favicon.png" sizes="16x16">
+	<link rel="stylesheet" href="<?=URL?>public/css/bulma.css">
+	<link rel="stylesheet" href="<?=URL?>public/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?=URL?>public/css/main.css">
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>

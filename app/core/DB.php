@@ -10,7 +10,7 @@ class DB {
 
     private function __construct() {
         try {
-            $this->pdo = new PDO('mysql:host=' . Config::get('mysql/host') . ';dbname=' . Config::get('mysql/db') . ';charset=utf8', Config::get('mysql/username'), Config::get('mysql/password'));
+            $this->pdo = new PDO(Config::get('mysql/dsn'), Config::get('mysql/username'), Config::get('mysql/password'));
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $this->pdo->exec('CREATE DATABASE IF NOT EXISTS `camagru` COLLATE utf8_general_ci');
