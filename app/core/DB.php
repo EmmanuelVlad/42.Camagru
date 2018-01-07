@@ -24,6 +24,11 @@ class DB {
               `key` varchar(30) NOT NULL,
               PRIMARY KEY (`id`)
             )');
+
+            $this->pdo->exec('CREATE TABLE IF NOT EXISTS `reset_keys` (
+                `user` int NOT NULL,
+                `key` varchar(30) NOT NULL
+            )');
         } catch(PDOException $e) {
             die("Error: ".$e->getMessage());
         }

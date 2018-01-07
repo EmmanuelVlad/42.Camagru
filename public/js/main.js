@@ -11,7 +11,7 @@ function changeColor(element, color) {
 }
 
 function changeState(element, state) {
-    states = ['is-hovered', 'is-focused'];
+    states = ['is-hovered', 'is-focused', 'is-loading'];
     states.forEach(function(state) {
         if (element.classList.contains(state)) {
             element.classList.remove(state);
@@ -28,7 +28,46 @@ function changeIcon(parent, icon, position = "right")
     (icon) ? element.innerHTML = `<i class="fa fa-${icon}"></i>` : element.innerHTML = "";
 }
 
-document.addEventListener("DOMContentLoaded", function(event) { 
+function addNotification(parent, color, message)
+{
+    var div = document.createElement("div");
+    div.classList.add("notification");
+    div.classList.add(color);
+
+    var button = document.createElement("button");
+    button.classList.add("delete");
+    button.addEventListener('click', function() {
+        dismiss(button);
+    });
+
+    var text = document.createTextNode(message);
+
+    div.appendChild(button);
+    div.appendChild(text);
+
+    parent.insertBefore(div, parent.firstChild);
+}
+
+function deleteNotifications()
+{
+    var notifications = Array.from(document.getElementsByClassName('notification'));
+
+    notifications.forEach(function(el) {
+        el.remove();
+    });
+}
+
+function dismiss(e) {
+    e.parentElement.remove();
+}
+
+function reset(el) {
+    el.value = "";
+    changeColor(el, "");
+    changeIcon(el.parentElement, "");
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
 
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
     if ($navbarBurgers.length > 0) {

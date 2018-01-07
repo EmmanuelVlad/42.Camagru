@@ -16,6 +16,9 @@
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<script>
+		const url = "<?=URL?>";
+	</script>
 	<script src="<?=URL?>public/js/main.js"></script>
 
 	<?= (isset($data->custom_meta)) ? $data->custom_meta : '' ?>

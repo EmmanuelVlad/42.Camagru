@@ -13,12 +13,13 @@
       <div id="navMenu" class="navbar-menu">
 <?php if (Session::get('user')) { ?>
         <div class="navbar-end">
-          <a href="/" class="navbar-item"><?=Session::get('user')?></a>
+          <a href="<?=URL?>" class="navbar-item"><?=Session::get('user')?></a>
+          <a href="<?=URL?>logout" class="navbar-item">Log out</a>
         </div>
 <?php  } else { ?>
         <div class="navbar-end">
-          <a href="/login" class="navbar-item">Log in</a>
-          <a href="/register" class="navbar-item">Register</a>
+          <a href="<?=URL?>login" class="navbar-item">Log in</a>
+          <a href="<?=URL?>register" class="navbar-item">Register</a>
         </div>
 <?php  } ?>
       </div>

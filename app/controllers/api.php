@@ -35,6 +35,19 @@ class Api extends Controller
         $this->printReturn();
     }
 
+    public function email($email)
+    {
+        $this->return['success'] = false;
+        
+        if (isset($email)) {
+            $check = $this->db->get("*", "users", "email", "'$email'");
+            if ($check) {
+                $this->return['success'] = true;
+            }
+        }
+        $this->printReturn();
+    }
+
 
     //
     //      REGISTER
@@ -48,12 +61,17 @@ class Api extends Controller
             $email = $_POST['email'];
             $password = $_POST['password'];
             $password2 = $_POST['password2'];
+            $check_username = $this->db->get("*", "users", "username", "'$username'");
+            $check_email = $this->db->get("*", "users", "email", "'$email'");
 
             if (!preg_match("/^[a-z-A-Z0-9_-]{3,15}$/", $username)) {
                 array_push($this->return['errors'], "Username must have between 3 and 15 alphanumeric characters only.");
             }
-            if ($this->db->get("*", "users", "username", "'$username'")) {
+            if ($check_username) {
                 array_push($this->return['errors'], "Username not available.");
+            }
+            if ($check_email) {
+                array_push($this->return['errors'], "Email address already in use!");
             }
             if (!preg_match("/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,3})$/", $email)) {
                 array_push($this->return['errors'], "Your email address isn't valid.");
@@ -73,19 +91,105 @@ class Api extends Controller
                     "key"       => $key
                 ]);
                 if ($query) {
-                    // $this->return['mail'] = mail($email, "test", "test");
                     if (mail($email, "Welcome on Camagru $username!", "Here is your activation link: http:" . URL . "activate/$key")) {
                         $this->return['success'] = true;
                     } else {
                         $this->db->action('DELETE', 'users', "WHERE username = '$username'");
-                        $this->return['error'] = "Couldn't send the mail";
+                        array_push($this->return['errors'], "Couldn't send the mail");
                     }
                 } else {
-                    $this->return['error'] = "There was an error while creating your account, please retry!";
+                    array_push($this->return['errors'], "There was an error while creating your account, please retry!");
                 }
             }
         } else {
-            $this->return['error'] = "Please fill the form!";
+            array_push($this->return['errors'], "Please fill the form!");
+        }
+
+        $this->printReturn();
+    }
+
+
+    //
+    //      RESET
+    //
+    public function reset()
+    {
+        $this->return['success'] = false;
+        $this->return['errors'] = [];
+        if (isset($_POST['email'])) {
+            $email = $_POST['email'];
+            $user = $this->db->get("*", "users", "email", "'$email'");
+
+            if (!$user) {
+                array_push($this->return['errors'], "User with this email address does not exist.");
+            }
+            if (!preg_match("/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,3})$/", $email)) {
+                array_push($this->return['errors'], "Your email address isn't valid.");
+            }
+            if (empty($this->return['errors'])) {
+                $key = randChar(30);
+                $query = $this->db->insert('reset_keys', [
+                    "user"  => $user->id,
+                    "key"   => $key
+                ]);
+                if ($query) {
+                    if (mail($email, "You forgot your password $user->username?", "Here is your reset link: http:" . URL . "reset/$key")) {
+                        $this->return['success'] = true;
+                    } else {
+                        $this->db->action('DELETE', 'reset_keys', "WHERE `key` = '$key'");
+                        array_push($this->return['errors'], "Couldn't send the mail");
+                    }
+                } else {
+                    array_push($this->return['errors'], "There was an error while creating your reset key, please retry!");
+                }
+            }
+        } else {
+            array_push($this->return['errors'], "Please fill the form!");
+        }
+
+        $this->printReturn();
+    }
+
+
+    //
+    //      RESET PASSWORD
+    //
+    public function reset_password()
+    {
+        $this->return['success'] = false;
+        $this->return['errors'] = [];
+        if (isset($_POST['key']) && isset($_POST['password']) && isset($_POST['password2'])) {
+            $key = $_POST['key'];
+            $password = $_POST['password'];
+            $password2 = $_POST['password2'];
+            $check = $this->db->get("*", "reset_keys", "`key`", "'$key'");
+
+            if (!$check) {
+                array_push($this->return['errors'], "Reset key doesn't exist!");
+            }
+            if (!preg_match("/^(?=.*[A-Z])(?=.*[0-9]).{8,}$/", $password)) {
+                array_push($this->return['errors'], "Your password must have at least 8 characters with at least 1 uppercase and 1 number.");
+            }
+            if (preg_match("/^(?=.*[A-Z])(?=.*[0-9]).{8,}$/", $password) && $password2 !== $password) {
+                array_push($this->return['errors'], "Your password doesn't match.");
+            }
+
+            if (empty($this->return['errors'])) {
+                $delete = $this->db->action('DELETE', 'reset_keys', "WHERE `key` = '$key'");
+                if ($delete) {
+                    $query = $this->db->update("users", "`id`", "'$check->user'", ["password" => sha1($password)]);
+                    if ($query) {
+                        $this->return['success'] = true;
+                    } else {
+                        $this->db->insert('reset_keys', ["user" => $check->user, "key" => $key]);
+                        array_push($this->return['errors'], "There was an error while updating your password, please retry!");
+                    }
+                } else {
+                    array_push($this->return['errors'], "There was an error while deleting the key, please retry!");
+                }
+            }
+        } else {
+            array_push($this->return['errors'], "Please fill the form!");
         }
 
         $this->printReturn();
