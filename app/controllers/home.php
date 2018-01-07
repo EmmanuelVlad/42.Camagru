@@ -6,15 +6,36 @@ class Home extends Controller
     {
         $user = $this->model('User');
 
-        $this->view('header');
-
         if (isset($user->id)) {
-            $this->view('menu');
+            $this->view('header');
+            $this->view('menu', ['user' => $user]);
             $this->view('home/index', ['user' => $user]);
         } else {
-            $this->view('home/register', ['user' => $user]);
+            $this->redirect("register");
         }
 
+        $this->view('footer');
+    }
+
+    public function login()
+    {
+        $this->view('header', [
+            'title' => "Login",
+            'custom_meta' => '<script src="'.URL.'public/js/login.js"></script>'
+        ]);
+        $this->view('menu');
+        $this->view('home/login');
+        $this->view('footer');
+    }
+
+    public function register()
+    {
+        $this->view('header', [
+            'title' => "Register",
+            'custom_meta' => '<script src="'.URL.'public/js/register.js"></script>'
+        ]);
+        $this->view('menu');
+        $this->view('home/register');
         $this->view('footer');
     }
 

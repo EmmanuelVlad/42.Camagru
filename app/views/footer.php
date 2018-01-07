@@ -1,25 +1,16 @@
 
 <footer>
-  <div class="container">
-
-    <ul>
-      <li class="footer-logo">Camagru</li>
-    </ul>
-
-    <ul>
-      <li class="footer-title">Title</li>
-      <li class="footer-about">about</li>
-      <li class="footer-copyright">copyright</li>
-    </ul>
-
-    <ul>
-      <li class="footer-title">Title</li>
-      <li><a href="<?=URL?>">Link</a></li>
-      <li><a href="<?=URL?>">Link</a></li>
-      <li><a href="<?=URL?>">Link</a></li>
-      <li><a href="<?=URL?>">Link</a></li>
-    </ul>
- 
+  <div class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>Camagru by evlad</p>
+        <p>
+          <a href="https://github.com/emmanuelvlad/42.camagru" class="icon">
+            <i class="fa fa-github"></i>
+          </a>
+          </p>
+      </div>
+    </div>
   </div>
 </footer>
 

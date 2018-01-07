@@ -13,7 +13,7 @@
             `username` varchar(30) NOT NULL,
             `email` varchar(255) NOT NULL,
             `password` varchar(255) NOT NULL,
-            `active` tinyint(4) NOT NULL DEFAULT 0,
+            `key` varchar(30) NOT NULL,
             PRIMARY KEY (`id`)
         )');
     } catch(PDOException $e) {

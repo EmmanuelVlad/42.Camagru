@@ -21,11 +21,11 @@ class DB {
               `username` varchar(30) NOT NULL,
               `email` varchar(255) NOT NULL,
               `password` varchar(255) NOT NULL,
-              `active` tinyint(4) NOT NULL DEFAULT 0,
+              `key` varchar(30) NOT NULL,
               PRIMARY KEY (`id`)
             )');
         } catch(PDOException $e) {
-            die("test: ".$e->getMessage());
+            die("Error: ".$e->getMessage());
         }
     }
 
@@ -98,7 +98,11 @@ class DB {
     }
 
     public function first() {
-        return $this->results()[0];
+        if ($this->results && $this->results[0]) {
+            return $this->results()[0];
+        } else {
+            return false;
+        }
     }
 
     public function error() {
@@ -109,7 +113,7 @@ class DB {
         return $this->count;
     }
 
-    public function get($table, $identifier, $id, $field) {
+    public function get($field, $table, $identifier, $id) {
         return $this->query("SELECT {$field} FROM {$table} WHERE {$identifier} = {$id}")->first();
     }
 }

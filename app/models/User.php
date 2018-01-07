@@ -4,7 +4,8 @@ class User {
     private $table = 'users';
     private $identifier = 'id';
     private $error = false;
-    
+
+    public  $data;
     public  $id;
 
     public function __construct($id = null, $username =  null) {
@@ -16,6 +17,10 @@ class User {
             $this->id = $this->db->first()->id;
         } else if (Session::get('user')) {
             $this->id = Session::get('user');
+        }
+
+        if (isset($this->id)) {
+            $this->data = $this->db->get("*", "users", "id", $this->id);
         }
     }
 

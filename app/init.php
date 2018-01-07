@@ -9,6 +9,7 @@ define('SITE_TITLE', "Camagru");
 define('SITE_DESCRIPTION', "Camagru");
 
 require ROOT . "config/database.php";
+require ROOT . "app/core/Functions.php";
 
 // Global variables
 $GLOBALS['config'] = array(

@@ -13,4 +13,9 @@ class Controller
         $data = (object)$data;
         require_once ROOT . "app/views/{$view}.php";
     }
+
+    public function redirect($location)
+    {
+        return header("Location: " . URL . "$location");
+    }
 }
