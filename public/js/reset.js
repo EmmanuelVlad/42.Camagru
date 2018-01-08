@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // On email change
     email.addEventListener("change", function(event) {
+        // hhellooooooo
         if (/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,3})$/.test(email.value)) {
             email.parentElement.classList.toggle('is-loading');
             var xhr = new XMLHttpRequest();
