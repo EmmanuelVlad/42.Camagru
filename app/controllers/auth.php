@@ -123,4 +123,20 @@ class Auth extends Controller
         }
     }
 
+    public function settings()
+    {
+        if (Session::get('user')) {
+            $user = $this->db->get("*", "users", "`id`", Session::get('user'));
+            $this->view('header', [
+                'title' => "Settings",
+                'custom_meta' => '<script src="'.URL.'public/js/settings.js"></script>'
+            ]);
+            $this->view('menu');
+            $this->view('home/settings', ["user" => $user]);
+            $this->view('footer');
+        } else {
+            $this->redirect('');
+        }
+    }
+
 }

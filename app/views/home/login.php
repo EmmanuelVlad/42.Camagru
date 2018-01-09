@@ -1,14 +1,15 @@
 <div class="column is-half is-offset-one-quarter">
 
-    <form action="" method="post">
-        <p class="title is-size-3">Login</p>
+    <p class="title is-size-3">Login</p>
 
-<?php   if (isset($data->error)) { ?>
-        <div class="notification is-danger">
-            <button class="delete" onclick="dismiss(this)"></button>
-            <?=$data->error?>
-        </div>
-<?php   } ?>  
+    <?php   if (isset($data->error)) { ?>
+            <div class="notification is-danger">
+                <button class="delete" onclick="dismiss(this)"></button>
+                <?=$data->error?>
+            </div>
+    <?php   } ?>
+
+    <form action="" method="post">
 
         <div class="field">
             <label for="username" class="label">Username</label>

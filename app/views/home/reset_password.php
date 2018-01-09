@@ -1,7 +1,7 @@
 <div class="column is-half is-offset-one-quarter">
 
     <p class="title is-size-3">Reset password</p>
-    <p class="subtitle is-size-6">Hey <?=$data->user->username?>, you may now enter a new password!</p>
+    <p class="subtitle is-size-6">Hey <?=htmlspecialchars($data->user->username)?>, you may now enter a new password!</p>
 
     <div id="notifications"></div>
 

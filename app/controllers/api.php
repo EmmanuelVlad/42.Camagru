@@ -194,4 +194,103 @@ class Api extends Controller
 
         $this->printReturn();
     }
+
+
+    //
+    //      Settings
+    //
+    public function settings()
+    {
+        $this->return['success'] = false;
+        $this->return['errors'] = [];
+        $user = Session::get('user');
+        if ($user) {
+            if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password2'])) {
+                $old = $this->db->get("*", "users", "id", $user);
+                $username = $_POST['username'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $password2 = $_POST['password2'];
+                $check_username = $this->db->get("*", "users", "username", "'$username'");
+                $check_email = $this->db->get("*", "users", "email", "'$email'");
+
+                if (!empty($username)) {
+                    if (!preg_match("/^[a-z-A-Z0-9_-]{3,15}$/", $username)) {
+                        array_push($this->return['errors'], "Username must have between 3 and 15 alphanumeric characters only.");
+                    }
+                    if ($check_username && $check_username->username !== $old->username) {
+                        array_push($this->return['errors'], "Username not available.");
+                    }
+                }
+                if (!empty($email)) {
+                    if ($check_email && $check_email->email !== $old->email) {
+                        array_push($this->return['errors'], "Email address not available.");
+                    }
+                    if (!preg_match("/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,3})$/", $email)) {
+                        array_push($this->return['errors'], "Your email address isn't valid.");
+                    }
+                }
+                if (!empty($password) && !empty($password2)) {
+                    if (!preg_match("/^(?=.*[A-Z])(?=.*[0-9]).{8,}$/", $password)) {
+                        array_push($this->return['errors'], "Your password must have at least 8 characters with at least 1 uppercase and 1 number.");
+                    }
+                    if (preg_match("/^(?=.*[A-Z])(?=.*[0-9]).{8,}$/", $password) && $password2 !== $password) {
+                        array_push($this->return['errors'], "Your password doesn't match.");
+                    }
+                } else if ((!empty($password) && empty($password2)) || (!empty($password2) && empty($password))) {
+                    array_push($this->return['errors'], "Please repeat your password!");
+                }
+                
+                if (empty($this->return['errors'])) {
+                    if (!empty($username)) {
+                        $this->db->update("users", "id", $user, ["username" => $username]);
+                    }
+                    if (!empty($email)) {
+                        $this->db->update("users", "id", $user, ["email" => $email]);
+                    }
+                    if (!empty($password) && !empty($password2)) {
+                        $this->db->update("users", "id", $user, ["password" => sha1($password)]);
+                    }
+                    $new = $this->db->get("*", "users", "id", $user);
+                    $this->return['username'] = $new->username;
+                    $this->return['email'] = $new->email;
+                    $this->return['success'] = true;
+                }
+            } else {
+                array_push($this->return['errors'], "Please fill the form!");
+            }
+        }
+
+        $this->printReturn();
+    }
+
+
+    //
+    //      UPLOAD
+    //
+    function upload()
+    {
+        $this->return['success'] = false;
+        $this->return['errors'] = [];
+
+        $type = [
+            'image/png',
+            'image/jpeg',
+            'image/jpeg',
+            'image/jpeg'
+        ];
+        if (isset($_FILES['file'])) {
+            $found = array_search($_FILES['file']['type'], $type);
+            if ($found !== false) {
+                $tmp = file_get_contents($_FILES['file']['tmp_name']);
+                $base64 = "data: " . $type[$found] . ";base64," . base64_encode($tmp);
+                $this->return['base64'] = $base64;
+                $this->return['success'] = true;
+            } else {
+                array_push($this->return['errors'], "Incorrect mime type!");
+            }
+        }
+
+        $this->printReturn();
+    }
 }

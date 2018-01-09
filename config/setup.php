@@ -21,6 +21,12 @@
             `user` int NOT NULL,
             `key` varchar(30) NOT NULL
         )');
+
+        $pdo->exec('CREATE TABLE IF NOT EXISTS `photos` (
+            `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            `user` int NOT NULL,
+            `photo` longtext NOT NULL
+        )');
     } catch(PDOException $e) {
         die("Error: ".$e->getMessage());
     }

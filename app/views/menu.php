@@ -13,7 +13,7 @@
       <div id="navMenu" class="navbar-menu">
 <?php if (Session::get('user')) { ?>
         <div class="navbar-end">
-          <a href="<?=URL?>" class="navbar-item"><?=Session::get('user')?></a>
+          <a href="<?=URL?>settings" class="navbar-item">Settings</a>
           <a href="<?=URL?>logout" class="navbar-item">Log out</a>
         </div>
 <?php  } else { ?>

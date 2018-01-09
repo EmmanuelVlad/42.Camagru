@@ -13,6 +13,7 @@ $router->get('/reset', 'auth/reset');
 $router->get('/reset/<:key|[a-z-A-Z0-9]{30}>', 'auth/reset_password');
 $router->get('/register', 'auth/register');
 $router->get('/activate/<:key|[a-z-A-Z0-9]{30}>', 'auth/activate');
+$router->get('/settings', 'auth/settings');
 
 // API
 $router->get('/api/username/<:name|[a-z-A-Z0-9_-]{2,15}>', 'api/username');
@@ -20,6 +21,8 @@ $router->get('/api/email/<:email|([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA
 $router->post('/api/register', 'api/register');
 $router->post('/api/reset', 'api/reset');
 $router->post('/api/reset_password', 'api/reset_password');
+$router->post('/api/settings', 'api/settings');
+$router->post('/api/upload', 'api/upload');
 
 
 // Example in case I forget about
