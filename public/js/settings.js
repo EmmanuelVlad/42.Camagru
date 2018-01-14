@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 changeState(submit, '');
                 loading = false;
             };
-            xhr.send(encodeURI(`username=${username.value}&email=${email.value}&password=${password.value}&password2=${password2.value}`));
+            xhr.send(encodeURI(`username=${username.value}&email=${email.value}&notification=${document.getElementById('notification').checked}&password=${password.value}&password2=${password2.value}`));
         }
         event.preventDefault();
     });

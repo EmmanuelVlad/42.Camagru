@@ -18,6 +18,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 	<script>
 		const url = "<?=URL?>";
+		const connected = <?=(Session::get('user')) ? "true" : "false"?>;
+		const user = <?=(Session::get('user')) ? Session::get('user') : 0?>;
 	</script>
 	<script src="<?=URL?>public/js/main.js"></script>
 

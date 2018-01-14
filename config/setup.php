@@ -12,6 +12,7 @@
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `username` varchar(30) NOT NULL,
             `email` varchar(255) NOT NULL,
+            `notification` tinyint NOT NULL DEFAULT 1,
             `password` varchar(255) NOT NULL,
             `key` varchar(30) NOT NULL,
             PRIMARY KEY (`id`)
@@ -26,6 +27,18 @@
             `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
             `user` int NOT NULL,
             `photo` longtext NOT NULL
+        )');
+
+        $pdo->exec('CREATE TABLE IF NOT EXISTS `likes` (
+            `photo` int NOT NULL,
+            `user` int NOT NULL
+        )');
+
+        $pdo->exec('CREATE TABLE IF NOT EXISTS `comments` (
+            `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            `user` int NOT NULL,
+            `photo` int NOT NULL,
+            `comment` text NOT NULL
         )');
     } catch(PDOException $e) {
         die("Error: ".$e->getMessage());

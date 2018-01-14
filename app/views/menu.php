@@ -11,6 +11,9 @@
         </div>
       </div>
       <div id="navMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <a href="<?=URL?>galery" class="navbar-item">Galery</a>
+        </div>
 <?php if (Session::get('user')) { ?>
         <div class="navbar-end">
           <a href="<?=URL?>settings" class="navbar-item">Settings</a>

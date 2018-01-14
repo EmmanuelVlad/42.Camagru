@@ -28,6 +28,13 @@
         </div>
 
         <div class="field">
+            <label for="notification" class="label checkbox">Send email notification</label>
+            <p class="control">
+                <input id="notification" type="checkbox" name="notification" <?php echo ($data->user->notification) ? "checked" : "";  ?>>
+            </p>
+        </div>
+
+        <div class="field">
             <label for="password" class="label">Password</label>
             <p class="control has-icons-left has-icons-right">
                 <input id="password" type="password" class="input" name="password" placeholder="Password">
